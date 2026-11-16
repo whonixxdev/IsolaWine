@@ -41,10 +41,10 @@ const navLinks: NavItem[] = [
     list: "GALLERY",
     href: "/Gallery",
     child: [
-      { list: "WINERY", href: "/Gallery/Winery" },
-      { list: "VINEYARDS", href: "/Gallery/Vineyards" },
-      { list: "WINE", href: "/Gallery/Wine" },
-      { list: "TOURS", href: "/Gallery/Tours" },
+      // { list: "WINERY", href: "/Gallery/Winery" },
+      // { list: "VINEYARDS", href: "/Gallery/Vineyards" },
+      // { list: "WINE", href: "/Gallery/Wine" },
+      // { list: "TOURS", href: "/Gallery/Tours" },
     ],
   },
   { list: "SHOP", href: "/Shop" },
@@ -103,7 +103,7 @@ export default function Navbar({ children }: NavbarProps) {
       {link.list.split("").map((char, charIndex) => (
         <span key={charIndex} className="relative block h-full">
           <motion.span
-            className="block text-[#F8F6EF]"
+            className="block text-[#00000]"
             animate={{
               y: hoveredHref === link.href ? "-100%" : "0%",
             }}
@@ -118,7 +118,7 @@ export default function Navbar({ children }: NavbarProps) {
           </motion.span>
 
           <motion.span
-            className="absolute top-full left-0 block text-[#F8F6EF]"
+            className="absolute top-full left-0 block text-[#00000]"
             animate={{
               y: hoveredHref === link.href ? "-100%" : "0%",
             }}
@@ -160,7 +160,7 @@ export default function Navbar({ children }: NavbarProps) {
               className="col-start-2 flex select-none items-center justify-center"
             >
               <Image
-                src="/assets/logo/Logo.png"
+                src="/assets/logo/LogoDark.png"
                 alt="Isola Wine Logo"
                 width={80}
                 height={80}

@@ -1,7 +1,10 @@
 import Link from "next/link";
+
 import Footer from "../components/layouts/Footer";
 import TextTitle from "../components/ui/title/Texttitle";
-import ScrollVelocityWave from "../components/animations/Scrollvelocitywave";
+import GalleryWine from "./Wine/GalleryWine";
+import GalleryVeneyards from "./Vineyards/GalleryVineyards";
+
 
 const galleryCategories = [
   { label: "Vineyards", href: "/Gallery/Vineyards" },
@@ -11,16 +14,10 @@ const galleryCategories = [
 ] as const;
 
 export default function GalleryPage() {
-  const imageModules = import.meta.glob("../assets/imgs/wine/*.jpg", {
-    eager: true,
-  });
-  const galleryImages = Object.values(imageModules).map(
-    (mod) => (mod as { default: string }).default,
-  );
   return (
     <>
-      <section className="relative z-30 bg-[#F4F1EA] pb-32 pt-50">
-        <div className="px-6">
+      <section className="relative z-30 bg-[#F4F1EA] pb-50 pt-50">
+        <div className="mb-16 px-6">
           <TextTitle eyebrow="Our World" title="Gallery" as="h1" />
 
           <nav
@@ -37,16 +34,13 @@ export default function GalleryPage() {
               </Link>
             ))}
           </nav>
-          <ScrollVelocityWave
-            images={galleryImages}
-            columns={4}
-            parallaxDistance={200}
-            waveIntensity={0.05}
-          />
         </div>
+
+        <GalleryVeneyards/>
+        <GalleryWine />
       </section>
 
-      <Footer />
+
     </>
   );
 }

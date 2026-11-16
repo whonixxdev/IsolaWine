@@ -1,6 +1,5 @@
 "use client"
 import { useMemo, useRef } from "react"
-import Image from "next/image"
 import {
   motion,
   useScroll,
@@ -56,10 +55,20 @@ function GalleryColumn({
   const y = useTransform([baseY, waveY], ([b, w]: number[]) => b + w)
 
   return (
-    <motion.div className="scroll-wave__column" style={{ y, skewY: skew }}>
+    <motion.div className="flex flex-col flex-1 gap-6 will-change-transform" style={{ y, skewY: skew }}>
       {images.map((src, i) => (
-        <div className="scroll-wave__item" key={`${index}-${i}`}>
-          <Image src={src} alt="" draggable={false} loading="lazy" fill sizes="(max-width: 768px) 100vw, 25vw" />
+        <div 
+          className="relative w-full overflow-hidden rounded-lg bg-stone-200 shadow-sm" 
+          style={{ aspectRatio: "4/5" }}
+          key={`${index}-${i}`}
+        >
+          <img 
+            src={src} 
+            alt="Isola Wine gallery" 
+            draggable={false} 
+            loading="lazy" 
+            className="h-full w-full object-cover"
+          />
         </div>
       ))}
     </motion.div>
@@ -87,7 +96,6 @@ export default function ScrollVelocityWave({
     mass: 0.5,
   })
 
-
   const columnImages = useMemo(() => {
     const grouped: string[][] = Array.from({ length: columns }, () => [])
     images.forEach((src, i) => grouped[i % columns].push(src))
@@ -97,7 +105,7 @@ export default function ScrollVelocityWave({
   return (
     <div
       ref={containerRef}
-      className={["scroll-wave", className].filter(Boolean).join(" ")}
+      className={["flex items-start gap-6 w-full px-6 md:px-10 box-border", className].filter(Boolean).join(" ")}
     >
       {columnImages.map((imgs, i) => (
         <GalleryColumn
