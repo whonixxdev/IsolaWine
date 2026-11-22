@@ -8,6 +8,7 @@ import HeroIntroLayer from "./HeroIntroLayer";
 import HeroSunsetPhase from "./HeroSunsetPhase";
 import HeroRelaxSection from "./HeroRelaxSection";
 import HeroBottleLayer from "./HeroBottleLayer";
+import SectionAboutHome from "./sectionAbouthome";
 
 gsap.registerPlugin(ScrollTrigger);
 
