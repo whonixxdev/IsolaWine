@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import ScrollVelocityWave from "../../components/animations/Scrollvelocitywave";
+import ScrollVelocityWave from "../../components/animations/Scroll/Scrollvelocitywave";
 
 const imageDirectory = path.join(
   process.cwd(),
@@ -25,7 +25,7 @@ function getTourImages(): string[] {
   if (files.length === 0) return [];
 
   // Menggandakan array gambar (misal dikali 3) agar galeri terlihat lebih banyak/penuh
-  return [...files, ...files, ...files];
+  return [...files, ...files];
 }
 
 export default function GalleryTours() {

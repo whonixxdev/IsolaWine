@@ -60,12 +60,12 @@ const contactItems: ContactItem[] = [
   {
     label: "Email",
     value: "info@cantinebalitawine.com",
-    href: "mailto:info@cantinebalitawine.com",
+    href: "info@cantinebalitawine.com",
   },
   {
     label: "WhatsApp",
     value: "+62 811 3970 051",
-    href: "https://wa.me/628113970051",
+    href: "https://wa.me/+628113970051",
   },
 ];
 
@@ -120,10 +120,10 @@ function WhatsappIcon() {
 }
 
 const socials: { label: string; href: string; icon: React.ReactNode }[] = [
-  { label: "Instagram", href: "https://www.instagram.com/", icon: <InstagramIcon /> },
-  { label: "YouTube", href: "https://www.youtube.com/", icon: <YoutubeIcon /> },
-  { label: "Facebook", href: "https://www.facebook.com/", icon: <FacebookIcon /> },
-  { label: "WhatsApp", href: "https://wa.me/628113970051", icon: <WhatsappIcon /> },
+  { label: "Instagram", href: "https://www.instagram.com/isolawine/", icon: <InstagramIcon /> },
+  { label: "YouTube", href: "https://www.youtube.com/channel/UC10ygfVTlSB0o9dSrEozEjQ", icon: <YoutubeIcon /> },
+  { label: "Facebook", href: "https://www.facebook.com/cantinebalita/", icon: <FacebookIcon /> },
+  { label: "WhatsApp", href: "https://wa.me/+628113970051", icon: <WhatsappIcon /> },
 ];
 
 function LinkColumn({ title, links }: { title: string; links: FooterLink[] }) {
@@ -172,7 +172,7 @@ export default function Footer() {
       >
         <motion.div variants={itemVariants} className="sm:col-span-2 lg:col-span-1">
           <Image
-            src="/assets/logo/IsolaLogo.png"
+            src="/assets/logo/LogoAbout.png"
             alt="Isola Vineyards"
             width={120}
             height={130}

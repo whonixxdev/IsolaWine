@@ -5,6 +5,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { FiX, FiPlus } from "react-icons/fi";
 import { motion, AnimatePresence } from "framer-motion";
+import { useBackgroundTheme } from "./useBackgroundTheme";
 
 type PageRoutes =
   | "/About"
@@ -32,23 +33,34 @@ interface NavbarProps {
   children?: ReactNode;
 }
 
+const COLOR_CREAM = "#F4F1EA";
+const COLOR_INK = "#1A1A1C";
+
+const LOGO_ON_LIGHT = "/assets/logo/LogoDark.png";
+const LOGO_ON_DARK = "/assets/logo/Logo.png";
+
+const INSTAGRAM_URL = "https://www.instagram.com/isolawine/";
+const MAPS_URL = "https://www.google.com/maps?q=-8.1368781,115.2394467";
+const WHATSAPP_URL = "https://wa.me/";
+
+const NAVBAR_PROBE_Y = 60;
+const BUTTON_PROBE_Y_MOBILE = 48;
+const BUTTON_PROBE_Y_DESKTOP = 72;
+
 const navLinks: NavItem[] = [
   { list: "ABOUT", href: "/About" },
   { list: "VINEYARDS", href: "/Vineyards" },
   { list: "WINERY", href: "/Winery" },
   { list: "WINES", href: "/Wine" },
-  {
-    list: "GALLERY",
-    href: "/Gallery",
-    child: [
-      // { list: "WINERY", href: "/Gallery/Winery" },
-      // { list: "VINEYARDS", href: "/Gallery/Vineyards" },
-      // { list: "WINE", href: "/Gallery/Wine" },
-      // { list: "TOURS", href: "/Gallery/Tours" },
-    ],
-  },
+  { list: "GALLERY", href: "/Gallery" },
   { list: "SHOP", href: "/Shop" },
   { list: "CONTACT", href: "/Contact" },
+];
+
+const socialLinks = [
+  { label: "Instagram", href: INSTAGRAM_URL },
+  { label: "Google Maps", href: MAPS_URL },
+  { label: "WhatsApp", href: WHATSAPP_URL },
 ];
 
 const leftLinks = navLinks.slice(0, 3);
@@ -62,6 +74,16 @@ export default function Navbar({ children }: NavbarProps) {
   const [sidebarHoveredIndex, setSidebarHoveredIndex] = useState<number | null>(
     null,
   );
+
+  const navTheme = useBackgroundTheme(NAVBAR_PROBE_Y);
+  const buttonTheme = useBackgroundTheme(
+    isMobileOrTablet ? BUTTON_PROBE_Y_MOBILE : BUTTON_PROBE_Y_DESKTOP,
+  );
+
+  const navColor = navTheme === "light" ? COLOR_INK : COLOR_CREAM;
+  const logoSrc = navTheme === "light" ? LOGO_ON_LIGHT : LOGO_ON_DARK;
+  const buttonBackground = buttonTheme === "light" ? COLOR_INK : COLOR_CREAM;
+  const buttonForeground = buttonTheme === "light" ? COLOR_CREAM : COLOR_INK;
 
   useEffect(() => {
     const checkScreenSize = () => {
@@ -98,12 +120,13 @@ export default function Navbar({ children }: NavbarProps) {
       href={link.href}
       onMouseEnter={() => setHoveredHref(link.href)}
       onMouseLeave={() => setHoveredHref(null)}
-      className="flex h-[20px] overflow-hidden text-[11px] font-light uppercase leading-[20px] tracking-[0.22em] text-[var(--text-secondary)] transition-colors hover:text-[var(--text-primary)] xl:text-xs"
+      style={{ color: navColor }}
+      className="flex h-[20px] overflow-hidden text-[11px] font-light uppercase leading-[20px] tracking-[0.22em] transition-colors duration-300 xl:text-xs"
     >
       {link.list.split("").map((char, charIndex) => (
         <span key={charIndex} className="relative block h-full">
           <motion.span
-            className="block text-[#00000]"
+            className="block"
             animate={{
               y: hoveredHref === link.href ? "-100%" : "0%",
             }}
@@ -118,7 +141,7 @@ export default function Navbar({ children }: NavbarProps) {
           </motion.span>
 
           <motion.span
-            className="absolute top-full left-0 block text-[#00000]"
+            className="absolute top-full left-0 block"
             animate={{
               y: hoveredHref === link.href ? "-100%" : "0%",
             }}
@@ -138,7 +161,7 @@ export default function Navbar({ children }: NavbarProps) {
 
   return (
     <>
-      <header className="font-cabinet">
+      <header data-navbar-root className="font-cabinet">
         <motion.div
           animate={{
             y: isNavbarHidden && !isMobileOrTablet ? "-100%" : "0%",
@@ -160,7 +183,7 @@ export default function Navbar({ children }: NavbarProps) {
               className="col-start-2 flex select-none items-center justify-center"
             >
               <Image
-                src="/assets/logo/LogoDark.png"
+                src={logoSrc}
                 alt="Isola Wine Logo"
                 width={80}
                 height={80}
@@ -194,7 +217,12 @@ export default function Navbar({ children }: NavbarProps) {
                 onClick={() => setOpen(true)}
                 aria-label="Open navigation menu"
                 aria-expanded={open}
-                className="flex h-14 w-14 flex-col items-center justify-center gap-1 rounded-3xl border border-[var(--border-color)] bg-[var(--pill-color)] text-[var(--active-text)] shadow-2xl transition-transform hover:scale-105 active:scale-95 lg:h-16 lg:w-16"
+                style={{
+                  backgroundColor: buttonBackground,
+                  color: buttonForeground,
+                  borderColor: buttonBackground,
+                }}
+                className="flex h-14 w-14 flex-col items-center justify-center gap-1 rounded-3xl border shadow-2xl transition-[background-color,color,border-color,transform] duration-300 hover:scale-105 active:scale-95 lg:h-16 lg:w-16"
               >
                 <span className="block h-[2px] w-6 rounded-full bg-current" />
                 <span className="block h-[2px] w-6 rounded-full bg-current" />
@@ -215,11 +243,11 @@ export default function Navbar({ children }: NavbarProps) {
                 ease: [0.76, 0, 0.24, 1],
                 duration: 0.5,
               }}
-              className="fixed inset-y-0 right-0 z-[999] flex w-full flex-col justify-between bg-[var(--background)] p-6 text-[var(--foreground)] shadow-2xl sm:w-[450px] lg:w-[500px] lg:p-12"
+              className="fixed inset-y-0 right-0 z-[999] flex w-full flex-col justify-between overflow-y-auto bg-[#F4F1EA] p-6 text-[#1A1A1C] shadow-2xl sm:w-[450px] lg:w-[500px] lg:p-12"
             >
-              <div className="flex w-full items-center justify-between">
+              <div className="flex w-full shrink-0 items-center justify-between">
                 <Image
-                  src="/assets/logo/Logo.png"
+                  src={LOGO_ON_LIGHT}
                   alt="Isola Wine Logo"
                   width={80}
                   height={80}
@@ -230,14 +258,14 @@ export default function Navbar({ children }: NavbarProps) {
                   type="button"
                   onClick={() => setOpen(false)}
                   aria-label="Close navigation menu"
-                  className="flex h-14 w-14 items-center justify-center rounded-3xl border border-[var(--border-color)] bg-[var(--surface-color)] text-[var(--text-primary)] transition-colors hover:opacity-70"
+                  className="flex h-14 w-14 items-center justify-center rounded-3xl border border-[#D9D3C4] bg-[#E8E3D6] text-[#1A1A1C] transition-opacity hover:opacity-70"
                 >
                   <FiX size={26} />
                 </button>
               </div>
 
-              <div className="my-auto flex flex-col gap-5 pl-2 lg:pl-6">
-                <span className="border-b border-[var(--border-color)] pb-4 font-mono text-xs uppercase tracking-widest text-[var(--text-secondary)]">
+              <div className="my-auto flex shrink-0 flex-col gap-5 py-6 pl-2 lg:pl-6">
+                <span className="border-b border-[#D9D3C4] pb-4 font-mono text-xs uppercase tracking-widest text-[#6B665C]">
                   Navigation
                 </span>
 
@@ -248,11 +276,11 @@ export default function Navbar({ children }: NavbarProps) {
                     onClick={() => setOpen(false)}
                     onMouseEnter={() => setSidebarHoveredIndex(index)}
                     onMouseLeave={() => setSidebarHoveredIndex(null)}
-                    className="group flex items-center justify-between border-b border-[var(--border-color)] pb-4 pr-4 text-4xl font-light tracking-wide transition-colors sm:text-5xl lg:text-6xl"
+                    className="group flex items-center justify-between border-b border-[#D9D3C4] pb-4 pr-4 text-4xl font-light tracking-wide transition-colors sm:text-5xl lg:text-6xl"
                   >
                     <span className="relative block h-[48px] w-full overflow-hidden sm:h-[60px] lg:h-[72px]">
                       <motion.span
-                        className="block text-[var(--text-secondary)] group-hover:text-[var(--text-primary)]"
+                        className="block text-[#6B665C]"
                         animate={{
                           y: sidebarHoveredIndex === index ? "-100%" : "0%",
                         }}
@@ -266,7 +294,7 @@ export default function Navbar({ children }: NavbarProps) {
                       </motion.span>
 
                       <motion.span
-                        className="absolute top-full left-0 block text-[var(--text-primary)]"
+                        className="absolute top-full left-0 block text-[#1A1A1C]"
                         animate={{
                           y: sidebarHoveredIndex === index ? "-100%" : "0%",
                         }}
@@ -282,52 +310,35 @@ export default function Navbar({ children }: NavbarProps) {
 
                     <FiPlus
                       size={24}
-                      className="shrink-0 text-[var(--text-secondary)] transition-colors group-hover:text-[var(--text-primary)]"
+                      className="shrink-0 text-[#6B665C] transition-colors group-hover:text-[#1A1A1C]"
                     />
                   </Link>
                 ))}
               </div>
 
-              <div className="flex flex-col gap-4 border-t border-[var(--border-color)] pt-6">
-                <span className="font-mono text-[10px] uppercase tracking-widest text-[var(--text-secondary)]">
+              <div className="flex shrink-0 flex-col gap-4 border-t border-[#D9D3C4] pt-6">
+                <span className="font-mono text-[10px] uppercase tracking-widest text-[#6B665C]">
                   Socials
                 </span>
 
-                <div className="flex flex-wrap gap-5 text-sm text-[var(--text-secondary)]">
-                  <a
-                    href="https://instagram.com/balco________"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-[var(--text-primary)]"
-                  >
-                    Instagram
-                  </a>
-
-                  <a
-                    href="https://maps.google.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-[var(--text-primary)]"
-                  >
-                    Google Maps
-                  </a>
-
-                  <a
-                    href="https://wa.me"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="transition-colors hover:text-[var(--text-primary)]"
-                  >
-                    WhatsApp
-                  </a>
+                <div className="flex flex-wrap gap-5 text-sm text-[#6B665C]">
+                  {socialLinks.map((social) => (
+                    <a
+                      key={social.label}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="transition-colors hover:text-[#1A1A1C]"
+                    >
+                      {social.label}
+                    </a>
+                  ))}
                 </div>
               </div>
             </motion.div>
           )}
         </AnimatePresence>
       </header>
-
-      {children}
     </>
   );
 }

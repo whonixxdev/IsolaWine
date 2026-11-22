@@ -1,7 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 
-import ScrollVelocityWave from "../../components/animations/Scrollvelocitywave";
+import ScrollVelocityWave from "../../components/animations/Scroll/Scrollvelocitywave";
 
 const imageDirectory = path.join(
   process.cwd(),

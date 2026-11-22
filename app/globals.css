@@ -52,6 +52,42 @@ body {
 }
 
 
+
+.custom-map-marker,
+.user-location-icon {
+  background: transparent;
+  border: none;
+}
+
+.map-marker-pin {
+  width: 32px;
+  height: 32px;
+  border-radius: 50% 50% 50% 0;
+  background: #263b32;
+  border: 2px solid white;
+  transform: rotate(-45deg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
+}
+
+.map-marker-pin span {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: white;
+}
+
+.user-location-dot {
+  width: 20px;
+  height: 20px;
+  border: 3px solid white;
+  border-radius: 50%;
+  background: #3b82f6;
+  box-shadow: 0 0 0 7px rgba(59, 130, 246, 0.2);
+}
+
    /* LIQUID GLASS */
 
 

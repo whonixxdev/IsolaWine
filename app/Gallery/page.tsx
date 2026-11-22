@@ -1,6 +1,5 @@
 import Link from "next/link";
 
-import Footer from "../components/layouts/Footer";
 import TextTitle from "../components/ui/title/Texttitle";
 import GalleryWine from "./Wine/GalleryWine";
 import GalleryVeneyards from "./Vineyards/GalleryVineyards";

@@ -1,5 +1,4 @@
-import Footer from "../../components/layouts/Footer";
-import TextTitle from "../../components/ui/title/Texttitle";
+ import TextTitle from "../../components/ui/title/Texttitle";
 import GalleryCategories from "../gallerycategories";
 import GalleryWine from "./GalleryWine";
 
@@ -14,8 +13,6 @@ export default function GalleryWinePage() {
 
         <GalleryWine />
       </section>
-
-
     </>
   );
-}
+} 

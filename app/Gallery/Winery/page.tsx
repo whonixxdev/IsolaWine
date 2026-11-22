@@ -1,4 +1,3 @@
-import Footer from "../../components/layouts/Footer";
 import TextTitle from "../../components/ui/title/Texttitle";
 import GalleryCategories from "../gallerycategories";
 import GalleryWine from "./GalleryWinery";

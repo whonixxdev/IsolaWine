@@ -14,13 +14,14 @@ const eyebrowFont = Jost({
   weight: ["500", "600"],
 });
 
-type HeadingTag = "h1" | "h2" | "h3";
+type HeadingTag = "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 
 interface TextTitleProps {
   eyebrow: string;
   title: string;
   as?: HeadingTag;
   className?: string;
+  titleClassName?: string;
 }
 
 export default function TextTitle({
@@ -28,6 +29,7 @@ export default function TextTitle({
   title,
   as: Heading = "h2",
   className = "",
+  titleClassName = "",
 }: TextTitleProps) {
   const pathname = usePathname();
 
@@ -37,7 +39,7 @@ export default function TextTitle({
     hidden: {},
     visible: {
       transition: {
-        staggerChildren: 0.07, // Jeda antar huruf dibuat cepat & responsif agar tidak ada delay saat klik cepat
+        staggerChildren: 0.07,
       },
     },
   };
@@ -60,7 +62,6 @@ export default function TextTitle({
       className={`mx-auto flex w-fit max-w-full flex-col items-center gap-3 md:gap-5 ${className}`}
     >
       <div className="flex w-full items-center gap-4 md:gap-8">
-        {/* Animasi garis kiri berjalan santai membentang keluar */}
         <motion.span
           initial={{ scaleX: 0, originX: 1 }}
           animate={{ scaleX: 1, originX: 1 }}
@@ -75,7 +76,6 @@ export default function TextTitle({
           {eyebrow}
         </span>
 
-        {/* Animasi garis kanan berjalan santai membentang keluar */}
         <motion.span
           initial={{ scaleX: 0, originX: 0 }}
           animate={{ scaleX: 1, originX: 0 }}
@@ -86,7 +86,9 @@ export default function TextTitle({
       </div>
 
       <Heading
-        className={`${titleFont.className} text-center text-5xl font-normal uppercase leading-none tracking-tight text-[#1E2A21] sm:text-7xl md:text-8xl`}
+        className={`${titleFont.className} text-center font-normal uppercase leading-none tracking-tight text-[#1E2A21] ${
+          titleClassName || "text-5xl sm:text-7xl md:text-8xl"
+        }`}
       >
         <motion.span
           variants={containerVariants}
