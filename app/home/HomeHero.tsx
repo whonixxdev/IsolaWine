@@ -1,45 +1,15 @@
 "use client";
 
 import { useLayoutEffect, useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import MagneticWrapper from "../components/animations/Magnetic/MagneticWrapper";
-import OurStoryButton from "../components/ui/button/OurStoryButton";
-
+import { BOTTLE_VISIBLE_RATIO } from "./home-hero.data";
+import HeroIntroLayer from "./HeroIntroLayer";
+import HeroSunsetPhase from "./HeroSunsetPhase";
+import HeroRelaxSection from "./HeroRelaxSection";
+import HeroBottleLayer from "./HeroBottleLayer";
 
 gsap.registerPlugin(ScrollTrigger);
-
-const serif = { fontFamily: '"Cormorant Garamond", Georgia, serif' };
-
-const GATE_WINDOW = "M586 300L676 210H836L926 300V982H586Z";
-
-const BOTTLE_VISIBLE_RATIO = 0.8;
-
-const STATS = [
-  { value: "2012", label: "Established" },
-  { value: "Bali", label: "Produced in" },
-  { value: "Italian", label: "Pure wine" },
-];
-
-const EXPERIENCES = [
-  {
-    number: "01",
-    title: "Vineyard walk",
-    text: "Wander between the vines and breathe in the island air.",
-  },
-  {
-    number: "02",
-    title: "Winery visit",
-    text: "See the place where every bottle of Isola is made.",
-  },
-  {
-    number: "03",
-    title: "Slow tasting",
-    text: "Pour, sip and take your time with good company.",
-  },
-];
 
 const visibleOnly = (nodes: Element[]) =>
   nodes.filter((node) => (node as HTMLElement).offsetParent !== null);
@@ -133,22 +103,31 @@ export default function HomeHero() {
         );
 
         const getMetrics = () => {
-          const startX = bottle.offsetLeft + bottle.offsetWidth / 2;
-          const startY = bottle.offsetTop + bottle.offsetHeight / 2;
-          const endX = landing.offsetLeft + landing.offsetWidth / 2;
-          const endY = landing.offsetTop + landing.offsetHeight / 2;
+          const bottleRect = bottle.getBoundingClientRect();
+          const landingRect = landing.getBoundingClientRect();
+          const rootRect = root.getBoundingClientRect();
+
+          const currentX = Number(gsap.getProperty(bottle, "x")) || 0;
+          const currentY = Number(gsap.getProperty(bottle, "y")) || 0;
+
+          const bottleCenterX = bottleRect.left + bottleRect.width / 2;
+          const bottleCenterY = bottleRect.top + bottleRect.height / 2;
+
+          const targetCenterX = landingRect.left + landingRect.width / 2;
+          const targetCenterY = landingRect.top + landingRect.height / 2;
+
           return {
-            centerY: root.offsetHeight / 2 - startY,
-            x: endX - startX,
-            y: endY - startY,
+            centerY: rootRect.top + root.offsetHeight / 2 - bottleCenterY + currentY,
+            x: currentX + (targetCenterX - bottleCenterX),
+            y: currentY + (targetCenterY - bottleCenterY),
             scale:
-              (landing.offsetHeight * 0.86) /
+              (landingRect.height * 0.88) /
               BOTTLE_VISIBLE_RATIO /
               bottle.offsetHeight,
           };
         };
 
-        gsap.set(bottle, { transformPerspective: 1400 });
+        gsap.set(bottle, { transformPerspective: 1400, autoAlpha: 1 });
         gsap.set(photo, { scale: 1.18 });
 
         const tl = gsap.timeline({
@@ -238,20 +217,25 @@ export default function HomeHero() {
               y: () => getMetrics().y,
               scale: () => getMetrics().scale,
               rotationY: 360,
-              duration: 5,
+              duration: 4.5,
               ease: "power2.inOut",
             },
             handoff,
           )
           .to(
             bottle,
-            { rotation: -8, duration: 2.5, ease: "sine.inOut" },
+            { rotation: -8, duration: 2.2, ease: "sine.inOut" },
             handoff,
           )
           .to(
             bottle,
-            { rotation: 0, duration: 2.5, ease: "sine.inOut" },
-            handoff + 2.5,
+            { rotation: 0, duration: 2.3, ease: "sine.inOut" },
+            handoff + 2.2,
+          )
+          .to(
+            bottle,
+            { autoAlpha: 0, duration: 0.4, ease: "power1.out" },
+            handoff + 4.3,
           )
           .from(
             relaxItems,
@@ -290,286 +274,18 @@ export default function HomeHero() {
         ref={layersRef}
         className="pointer-events-none absolute inset-0 z-10 overflow-hidden"
       >
-        <div ref={photoRef} className="absolute inset-0 z-0">
-          <Image
-            src="/assets/imgs/Background/BackgroundHome.png"
-            alt=""
-            fill
-            priority
-            sizes="100vw"
-            className="object-cover"
-          />
-        </div>
-
-        <div
-          ref={overlayRef}
-          className="absolute inset-0 z-[5] bg-[#1E2A21] opacity-0"
+        <HeroIntroLayer
+          photoRef={photoRef}
+          overlayRef={overlayRef}
+          gateRef={gateRef}
+          titleRef={titleRef}
+          labelsRef={labelsRef}
         />
-
-        <div ref={gateRef} className="absolute inset-0 z-10">
-          <svg
-            viewBox="0 0 1512 982"
-            preserveAspectRatio="xMidYMid slice"
-            className="h-full w-full overflow-visible"
-            aria-hidden="true"
-          >
-            <path
-              d={`M-4000 -4000H5500V5000H-4000Z ${GATE_WINDOW}`}
-              fill="#F4F1EA"
-              fillRule="evenodd"
-            />
-            <path
-              d={GATE_WINDOW}
-              fill="none"
-              stroke="#C49A3C"
-              strokeWidth="1.5"
-              vectorEffect="non-scaling-stroke"
-            />
-          </svg>
-        </div>
-
-        <h1
-          ref={titleRef}
-          aria-label="Isola"
-          style={serif}
-          className="absolute inset-0 z-20 flex items-center justify-center pb-[8svh] text-[27vw] font-medium leading-none tracking-[0.04em] text-[#C49A3C] lg:text-[23vw]"
-        >
-          {"ISOLA".split("").map((letter, index) => (
-            <span
-              key={`${letter}-${index}`}
-              aria-hidden="true"
-              className="-mx-[0.05em] -my-[0.1em] inline-block overflow-hidden px-[0.05em] py-[0.1em]"
-            >
-              <span data-letter className="inline-block opacity-0">
-                {letter}
-              </span>
-            </span>
-          ))}
-        </h1>
-
-        <div ref={labelsRef} className="absolute inset-0 z-20">
-          <div className="absolute left-[5vw] top-[12.5%] lg:left-[10vw] lg:top-[200px]">
-            <p
-              data-intro
-              className="flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] text-[#1E2A21] opacity-0 lg:gap-4 lg:text-[11px] lg:tracking-[0.4em]"
-            >
-              <span className="hidden h-px w-10 bg-[#C49A3C] lg:block" />
-              Pure Italian Wine
-            </p>
-            <p
-              data-intro
-              style={serif}
-              className="mt-5 hidden text-[clamp(1.5rem,2.1vw,2.5rem)] italic leading-[1.15] text-[#1E2A21] opacity-0 lg:block"
-            >
-              Poured slowly,
-              <br />
-              enjoyed unhurried.
-            </p>
-          </div>
-
-          <div className="pointer-events-auto absolute bottom-[12%] left-[8vw] hidden lg:block">
-            <div data-intro className="opacity-0">
-              <MagneticWrapper range={0.35}>
-                <div className="-m-5 p-5">
-                  <OurStoryButton />
-                </div>
-              </MagneticWrapper>
-            </div>
-          </div>
-
-          <div className="absolute right-[6vw] top-[12.5%] text-right lg:bottom-[12%] lg:right-[8vw] lg:top-auto">
-            <p
-              data-intro
-              className="flex items-center justify-end gap-3 text-[9px] uppercase tracking-[0.3em] text-[#1E2A21] opacity-0 lg:gap-4 lg:text-[11px] lg:tracking-[0.4em]"
-            >
-              Produced in Bali
-              <span className="hidden h-px w-10 bg-[#C49A3C] lg:block" />
-            </p>
-            <p
-              data-intro
-              style={serif}
-              className="mt-5 hidden text-[clamp(1.5rem,2.1vw,2.5rem)] italic leading-[1.15] text-[#1E2A21] opacity-0 lg:block"
-            >
-              Italian craft,
-              <br />
-              island sunsets.
-            </p>
-          </div>
-        </div>
-
-        <div className="absolute inset-0 z-20">
-          <div className="absolute left-[6vw] top-[12.5%] w-[88vw] lg:left-[8vw] lg:top-[17%] lg:w-[32vw]">
-            <p
-              data-phase
-              className="invisible mb-4 flex items-center gap-3 text-[9px] uppercase tracking-[0.3em] text-[#F4F1EA] lg:mb-5 lg:gap-4 lg:text-[11px] lg:tracking-[0.4em]"
-            >
-              <span className="h-px w-6 bg-[#C49A3C] lg:w-10" />
-              Born on the island
-            </p>
-            <h2
-              data-phase
-              style={serif}
-              className="invisible text-[clamp(1.75rem,7.6vw,2.4rem)] font-medium leading-[1.05] text-[#F4F1EA] lg:text-[clamp(2.25rem,3.6vw,4rem)]"
-            >
-              Italian soul,
-              <br />
-              Balinese sunset.
-            </h2>
-          </div>
-
-          <div
-            data-phase
-            className="invisible absolute bottom-[12%] left-[8vw] hidden items-center gap-4 text-[11px] uppercase tracking-[0.4em] text-[#F4F1EA] lg:flex"
-          >
-            <span className="h-12 w-px animate-pulse bg-[#C49A3C]" />
-            Scroll
-          </div>
-
-          <div className="absolute bottom-[4%] left-[6vw] w-[88vw] lg:bottom-[12%] lg:left-auto lg:right-[8vw] lg:w-[26vw]">
-            <p
-              data-phase
-              className="invisible text-[12.5px] leading-relaxed text-[#F4F1EA]/90 lg:text-[15px]"
-            >
-              Isola brings the character of Italian winemaking to the island of
-              Bali. Every bottle is made to be shared slowly, with good company
-              and a long view of the horizon.
-            </p>
-            <div
-              data-phase
-              className="invisible mt-8 hidden grid-cols-3 gap-6 border-t border-[#C49A3C] pt-5 lg:grid"
-            >
-              {STATS.map((stat) => (
-                <div key={stat.label}>
-                  <p
-                    style={serif}
-                    className="text-[28px] leading-none text-[#F4F1EA]"
-                  >
-                    {stat.value}
-                  </p>
-                  <p className="mt-3 text-[10px] uppercase tracking-[0.3em] text-[#F4F1EA]/70">
-                    {stat.label}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        <HeroSunsetPhase />
       </div>
 
-      <div
-        ref={relaxRef}
-        className="absolute left-0 top-full z-20 h-full w-full bg-[#F4F1EA]"
-      >
-        <div className="absolute left-[6vw] right-[6vw] top-[11%] lg:left-[8vw] lg:right-auto lg:top-[17%] lg:w-[48vw]">
-          <p
-            data-relax
-            className="mb-4 flex items-center gap-3 text-[10px] uppercase tracking-[0.35em] text-[#1E2A21] lg:mb-6 lg:gap-4 lg:text-[11px]"
-          >
-            <span className="h-px w-8 bg-[#C49A3C] lg:w-10" />
-            Visit Isola Wine
-          </p>
-          <h2
-            data-relax
-            style={serif}
-            className="text-[clamp(1.9rem,8.2vw,2.6rem)] font-medium leading-[1.05] text-[#1E2A21] lg:text-[clamp(2.75rem,4.6vw,5rem)]"
-          >
-            Just relax, and
-            <br />
-            go with the flow
-          </h2>
-          <p
-            data-relax
-            className="mt-6 hidden max-w-md text-[15px] leading-relaxed text-[#1E2A21]/75 lg:block"
-          >
-            Wander the vineyards, step inside the winery and taste Italian wine
-            made on the island. Slow afternoons, warm company and a view that
-            makes every glass taste better.
-          </p>
-          <div data-relax className="mt-8 hidden lg:block">
-            <Link
-              href="/Gallery/wine"
-              className="inline-flex items-center gap-3 rounded-full border border-[#1E2A21] px-8 py-3 text-[11px] uppercase tracking-[0.3em] text-[#1E2A21] transition-colors duration-300 hover:bg-[#1E2A21] hover:text-[#F4F1EA]"
-            >
-              <span>Discover our wines</span>
-              <span aria-hidden="true">→</span>
-            </Link>
-          </div>
-        </div>
-
-        <div className="absolute bottom-[17%] left-[8vw] hidden w-[48vw] lg:block">
-          <span
-            data-line
-            className="block h-px w-full bg-[#C49A3C]/60"
-          />
-          <div className="grid grid-cols-3 gap-8 pt-6">
-            {EXPERIENCES.map((item) => (
-              <div key={item.number} data-relax>
-                <p
-                  style={serif}
-                  className="text-[13px] tracking-[0.2em] text-[#C49A3C]"
-                >
-                  {item.number}
-                </p>
-                <p style={serif} className="mt-2 text-2xl text-[#1E2A21]">
-                  {item.title}
-                </p>
-                <p className="mt-2 text-[13px] leading-relaxed text-[#1E2A21]/70">
-                  {item.text}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        <div
-          ref={landingRef}
-          className="absolute left-[28vw] top-[27%] h-[40%] w-[44vw] border border-[#C49A3C]/50 lg:left-auto lg:right-[8vw] lg:top-[17%] lg:h-[66%] lg:w-[26vw]"
-        >
-          <p
-            data-relax
-            className="absolute left-3 top-3 text-[8px] uppercase tracking-[0.3em] text-[#1E2A21]/70 lg:left-4 lg:top-4 lg:text-[10px]"
-          >
-            Isola Wine · Bali
-          </p>
-        </div>
-
-        <div className="absolute bottom-[5%] left-[6vw] right-[6vw] lg:hidden">
-          <p
-            data-relax
-            className="text-[13px] leading-relaxed text-[#1E2A21]/75"
-          >
-            Vineyard walks, winery visits and slow tastings. Italian wine, made
-            on the island and made to be enjoyed unhurried.
-          </p>
-          <div className="mt-5 flex items-center justify-between">
-            <div data-relax>
-              <Link
-                href="/Gallery/wine"
-                className="inline-flex items-center gap-2 rounded-full border border-[#1E2A21] px-5 py-3 text-[10px] uppercase tracking-[0.25em] text-[#1E2A21] transition-colors duration-300 hover:bg-[#1E2A21] hover:text-[#F4F1EA]"
-              >
-                <span>Our wines</span>
-                <span aria-hidden="true">→</span>
-              </Link>
-            </div>
-            <div data-relax>
-              <OurStoryButton />
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <div className="pointer-events-none absolute inset-0 z-30 flex items-end justify-center">
-        <div ref={bottleRef} className="-mb-[7svh] will-change-transform">
-          <Image
-            src="/assets/imgs/Background/Isolabottle.png"
-            alt="Isola Wine bottle"
-            width={600}
-            height={1800}
-            priority
-            className="h-[91svh] w-auto"
-          />
-        </div>
-      </div>
+      <HeroRelaxSection relaxRef={relaxRef} landingRef={landingRef} />
+      <HeroBottleLayer bottleRef={bottleRef} />
     </section>
   );
 }
