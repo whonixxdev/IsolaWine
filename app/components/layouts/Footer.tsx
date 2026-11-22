@@ -1,7 +1,9 @@
+
 "use client";
 
 import Image from "next/image";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { motion, type Variants } from "motion/react";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 
@@ -56,32 +58,58 @@ const contactItems: ContactItem[] = [
     value:
       "Jl. Gn. Tangkuban Perahu No.1A, Kerobokan Kelod, Kec. Kuta Utara, Kabupaten Badung, Bali 80361",
   },
-  { label: "Open Hours", value: "09:00 — 18:00 (Monday — Friday)" },
+  {
+    label: "Open Hours",
+    value: "09:00 — 18:00 (Monday — Friday)",
+  },
   {
     label: "Email",
     value: "info@cantinebalitawine.com",
-    href: "info@cantinebalitawine.com",
+    href: "mailto:info@cantinebalitawine.com",
   },
   {
     label: "WhatsApp",
     value: "+62 811 3970 051",
-    href: "https://wa.me/+628113970051",
+    href: "https://wa.me/628113970051",
   },
 ];
 
 const containerVariants: Variants = {
   hidden: {},
-  visible: { transition: { staggerChildren: 0.12 } },
+  visible: {
+    transition: {
+      staggerChildren: 0.12,
+    },
+  },
 };
 
 const itemVariants: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } },
+  hidden: {
+    opacity: 0,
+    y: 20,
+  },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: {
+      duration: 0.6,
+      ease: "easeOut",
+    },
+  },
 };
 
 function InstagramIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <rect x="4" y="4" width="16" height="16" rx="4" />
       <circle cx="12" cy="12" r="3" />
       <path d="M16.5 7.5v.01" />
@@ -112,26 +140,62 @@ function FacebookIcon() {
 
 function WhatsappIcon() {
   return (
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
       <path d="M3 21l1.65-3.8a9 9 0 1 1 3.4 2.9l-5.05.9" />
       <path d="M9 10a.5.5 0 0 0 1 0v-1a.5.5 0 0 0-1 0v1a5 5 0 0 0 5 5h1a.5.5 0 0 0 0-1h-1a.5.5 0 0 0 0 1" />
     </svg>
   );
 }
 
-const socials: { label: string; href: string; icon: React.ReactNode }[] = [
-  { label: "Instagram", href: "https://www.instagram.com/isolawine/", icon: <InstagramIcon /> },
-  { label: "YouTube", href: "https://www.youtube.com/channel/UC10ygfVTlSB0o9dSrEozEjQ", icon: <YoutubeIcon /> },
-  { label: "Facebook", href: "https://www.facebook.com/cantinebalita/", icon: <FacebookIcon /> },
-  { label: "WhatsApp", href: "https://wa.me/+628113970051", icon: <WhatsappIcon /> },
+const socials: {
+  label: string;
+  href: string;
+  icon: React.ReactNode;
+}[] = [
+  {
+    label: "Instagram",
+    href: "https://www.instagram.com/isolawine/",
+    icon: <InstagramIcon />,
+  },
+  {
+    label: "YouTube",
+    href: "https://www.youtube.com/channel/UC10ygfVTlSB0o9dSrEozEjQ",
+    icon: <YoutubeIcon />,
+  },
+  {
+    label: "Facebook",
+    href: "https://www.facebook.com/cantinebalita/",
+    icon: <FacebookIcon />,
+  },
+  {
+    label: "WhatsApp",
+    href: "https://wa.me/628113970051",
+    icon: <WhatsappIcon />,
+  },
 ];
 
-function LinkColumn({ title, links }: { title: string; links: FooterLink[] }) {
+function LinkColumn({
+  title,
+  links,
+}: {
+  title: string;
+  links: FooterLink[];
+}) {
   return (
     <motion.div variants={itemVariants}>
       <h3 className="text-[12px] font-medium tracking-[0.25em] text-[#C49A3C]">
         {title}
       </h3>
+
       <ul className="mt-8 flex flex-col gap-[17px]">
         {links.map((link) => (
           <li key={link.label}>
@@ -149,14 +213,22 @@ function LinkColumn({ title, links }: { title: string; links: FooterLink[] }) {
 }
 
 export default function Footer() {
-  const year = new Date().getFullYear();
+  const [year, setYear] = useState<number | null>(null);
+
+  useEffect(() => {
+    setYear(new Date().getFullYear());
+  }, []);
+
   return (
     <footer className={`${jost.className} bg-[#1E2A21] text-[#F8F6EF]`}>
       <div className="px-6 py-12 md:px-10 lg:px-16 lg:py-14">
         <p className="text-[12px] font-medium tracking-[0.3em] text-[#C49A3C]">
           NEWSLETTER
         </p>
-        <h2 className={`${cormorant.className} mt-3 text-4xl font-light leading-tight text-[#F8F6EF] md:text-[46px]`}>
+
+        <h2
+          className={`${cormorant.className} mt-3 text-4xl font-light leading-tight text-[#F8F6EF] md:text-[46px]`}
+        >
           Notes from the vineyard
         </h2>
       </div>
@@ -170,7 +242,10 @@ export default function Footer() {
         viewport={{ once: true, amount: 0.15 }}
         className="grid grid-cols-1 gap-12 px-6 py-14 sm:grid-cols-2 md:px-10 lg:grid-cols-[1.9fr_1fr_1fr_1.5fr] lg:gap-x-10 lg:px-16 lg:py-[72px]"
       >
-        <motion.div variants={itemVariants} className="sm:col-span-2 lg:col-span-1">
+        <motion.div
+          variants={itemVariants}
+          className="sm:col-span-2 lg:col-span-1"
+        >
           <Image
             src="/assets/logo/LogoAbout.png"
             alt="Isola Vineyards"
@@ -178,9 +253,13 @@ export default function Footer() {
             height={130}
             className="h-[130px] w-[120px] object-contain"
           />
-          <p className={`${cormorant.className} mt-6 text-[32px] font-light italic leading-tight text-[#C49A3C] md:text-[34px]`}>
+
+          <p
+            className={`${cormorant.className} mt-6 text-[32px] font-light italic leading-tight text-[#C49A3C] md:text-[34px]`}
+          >
             Italian wine made in Bali
           </p>
+
           <p className="mt-5 max-w-[320px] text-[16px] font-light leading-[26px] text-[#F8F6EF]/70">
             Grown, fermented and bottled 100% in Bali, following strict Italian
             organic winemaking traditions.
@@ -188,18 +267,24 @@ export default function Footer() {
         </motion.div>
 
         <LinkColumn title="EXPLORE" links={exploreLinks} />
+
         <LinkColumn title="WINES" links={wineLinks} />
 
-        <motion.div variants={itemVariants} className="sm:col-span-2 lg:col-span-1">
+        <motion.div
+          variants={itemVariants}
+          className="sm:col-span-2 lg:col-span-1"
+        >
           <h3 className="text-[12px] font-medium tracking-[0.25em] text-[#C49A3C]">
             CONTACT
           </h3>
+
           <div className="mt-8 flex flex-col gap-5">
             {contactItems.map((item) => (
               <div key={item.label}>
                 <p className="text-[11px] font-medium uppercase tracking-[0.2em] text-[#F8F6EF]/55">
                   {item.label}
                 </p>
+
                 {item.href ? (
                   <a
                     href={item.href}
@@ -237,13 +322,15 @@ export default function Footer() {
 
       <div className="grid grid-cols-1 items-center gap-3 px-6 py-6 text-center md:grid-cols-3 md:px-10 md:text-left lg:px-16">
         <p className="text-[13px] font-light tracking-wide text-[#F8F6EF]/55">
-          © {year} Cantine Balita
+          © {year ?? "2026"} Cantine Balita
           <span className="mx-2">|</span>
           All Rights Reserved
         </p>
+
         <p className="text-center text-[12px] font-semibold tracking-[0.25em] text-[#C49A3C]">
           DRINK RESPONSIBLY. 21+ ONLY.
         </p>
+
         <p className="text-[13px] font-light uppercase tracking-[0.1em] text-[#F8F6EF]/55 md:text-right">
           Isola Wine
           <span className="mx-2">·</span>
