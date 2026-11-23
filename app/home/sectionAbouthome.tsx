@@ -50,7 +50,7 @@ const itemVariants: Variants = {
 export default function SectionAboutHome() {
   return (
     <section className="relative w-full border-t border-[#1E2A21]/15 bg-[#F8F6EF] text-[#1E2A21]">
-      <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-12 px-[6vw] py-20 lg:grid-cols-2 lg:gap-[6vw] lg:px-[4.5vw] lg:py-28">
+      <div className="mx-auto grid w-full max-w-[1400px] grid-cols-1 items-center gap-10 px-[6vw] py-16 sm:gap-12 sm:py-20 lg:grid-cols-2 lg:gap-[6vw] lg:px-[4.5vw] lg:py-28">
         <motion.div
           variants={groupVariants}
           initial="hidden"
@@ -68,7 +68,7 @@ export default function SectionAboutHome() {
           <motion.h2
             variants={itemVariants}
             style={SERIF_FONT}
-            className="mt-5 text-[clamp(2.5rem,4.2vw,4.25rem)] font-normal leading-[1.05] tracking-[-0.01em]"
+            className="mt-5 text-[clamp(2.25rem,8.5vw,3rem)] font-normal leading-[1.05] tracking-[-0.01em] sm:text-[clamp(2.5rem,4.2vw,4.25rem)]"
           >
             A boutique winery,
             <br />
@@ -85,7 +85,7 @@ export default function SectionAboutHome() {
             can speak for themselves.
           </motion.p>
 
-          <motion.div variants={itemVariants} className="mt-9">
+          <motion.div variants={itemVariants} className="mt-8 sm:mt-9">
             <Link
               href={STORY_LINK}
               className="inline-flex items-center gap-3 rounded-full border border-[#1E2A21]/60 px-7 py-3.5 text-[11px] uppercase tracking-[0.28em] text-[#1E2A21] transition-colors duration-300 hover:bg-[#1E2A21] hover:text-[#F8F6EF]"
@@ -95,7 +95,7 @@ export default function SectionAboutHome() {
             </Link>
           </motion.div>
 
-          <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-3 sm:gap-6">
+          <div className="mt-11 grid grid-cols-1 gap-6 sm:mt-14 sm:grid-cols-3 sm:gap-6">
             {STORY_POINTS.map((point) => (
               <motion.div
                 key={point.number}
@@ -130,7 +130,7 @@ export default function SectionAboutHome() {
             src={STORY_IMAGE}
             alt="Winery team harvesting grapes in the vineyard"
             fill
-            sizes="(min-width: 1024px) 40vw, 90vw"
+            sizes="(min-width: 1024px) 40vw, (min-width: 640px) 80vw, 90vw"
             className="object-cover"
           />
         </motion.div>

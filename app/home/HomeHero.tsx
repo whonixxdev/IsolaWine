@@ -8,7 +8,6 @@ import HeroIntroLayer from "./HeroIntroLayer";
 import HeroSunsetPhase from "./HeroSunsetPhase";
 import HeroRelaxSection from "./HeroRelaxSection";
 import HeroBottleLayer from "./HeroBottleLayer";
-import SectionAboutHome from "./sectionAbouthome";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,6 +53,8 @@ export default function HomeHero() {
       return;
     }
 
+    ScrollTrigger.config({ ignoreMobileResize: true });
+
     const letters = Array.from(title.querySelectorAll("[data-letter]"));
     const introItems = Array.from(root.querySelectorAll("[data-intro]"));
 
@@ -85,16 +86,33 @@ export default function HomeHero() {
       gsap.set([...letters, ...introItems], { autoAlpha: 1 });
     });
 
+    mm.add("(hover: none) and (pointer: coarse)", () => {
+      ScrollTrigger.normalizeScroll({
+        allowNestedScroll: true,
+        type: "touch",
+      });
+
+      return () => {
+        ScrollTrigger.normalizeScroll(false);
+      };
+    });
+
     mm.add(
-      { isDesktop: "(min-width: 1024px)", isMobile: "(max-width: 1023px)" },
+      {
+        isDesktop: "(min-width: 1024px)",
+        isTablet: "(min-width: 640px) and (max-width: 1023px)",
+        isMobile: "(max-width: 639px)",
+      },
       (context) => {
         const isDesktop = Boolean(context.conditions?.isDesktop);
-        const phaseScale = isDesktop ? 1 : 0.72;
+        const isTablet = Boolean(context.conditions?.isTablet);
+        const isMobile = Boolean(context.conditions?.isMobile);
+        const phaseScale = isDesktop ? 1 : isTablet ? 0.8 : 0.56;
         const handoff = 7.6;
 
         const labels = Array.from(labelsWrap.children);
         const phaseItems = visibleOnly(
-          Array.from(layers.querySelectorAll("[data-phase]")),
+          Array.from(root.querySelectorAll("[data-phase]")),
         );
         const relaxItems = visibleOnly(
           Array.from(relax.querySelectorAll("[data-relax]")),
@@ -138,7 +156,7 @@ export default function HomeHero() {
             start: "top top",
             end: () => `+=${window.innerHeight * 5}`,
             pin: true,
-            scrub: 0.8,
+            scrub: isDesktop ? 0.8 : 0.4,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
@@ -148,7 +166,16 @@ export default function HomeHero() {
           .to(gate, { scale: 7, duration: 4, ease: "power2.inOut" }, 0)
           .to(gate, { autoAlpha: 0, duration: 0.3 }, 3.7)
           .to(root, { backgroundColor: "#1E2A21", duration: 0.2 }, 2.2)
-          .to(title, { scale: 1.06, duration: 4, ease: "power1.inOut" }, 0)
+          .to(
+            title,
+            {
+              scale: isMobile ? 0.82 : 1.06,
+              y: () => (isMobile ? -root.offsetHeight * 0.13 : 0),
+              duration: 4,
+              ease: "power1.inOut",
+            },
+            0,
+          )
           .to(
             bottle,
             {
@@ -269,7 +296,7 @@ export default function HomeHero() {
   return (
     <section
       ref={rootRef}
-      className="relative h-svh w-full overflow-hidden bg-[#F4F1EA]"
+      className="relative isolate h-svh w-full overflow-hidden bg-[#F4F1EA]"
     >
       <div
         ref={layersRef}
@@ -282,11 +309,14 @@ export default function HomeHero() {
           titleRef={titleRef}
           labelsRef={labelsRef}
         />
-        <HeroSunsetPhase />
       </div>
 
       <HeroRelaxSection relaxRef={relaxRef} landingRef={landingRef} />
       <HeroBottleLayer bottleRef={bottleRef} />
+
+      <div className="pointer-events-none absolute inset-0 z-40">
+        <HeroSunsetPhase />
+      </div>
     </section>
   );
 }

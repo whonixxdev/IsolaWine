@@ -63,8 +63,8 @@ const cardVariants: Variants = {
 export default function SectionWorldHome() {
   return (
     <section className="relative w-full bg-[#F8F6EF] text-[#1E2A21]">
-      <div className="mx-auto w-full max-w-[1280px] px-[6vw] py-20 lg:px-[4.5vw] lg:py-28">
-        <div className="flex justify-center text-center [&_:is(h1,h2,h3,h4)]:text-[clamp(3rem,4.2vw,2.75rem)]! [&_:is(h1,h2,h3,h4)]:leading-[1.1]!">
+      <div className="mx-auto w-full max-w-[1280px] px-[6vw] py-16 sm:py-20 lg:px-[4.5vw] lg:py-28">
+        <div className="flex justify-center text-center [&_:is(h1,h2,h3,h4)]:text-[clamp(2.25rem,8vw,3rem)]! [&_:is(h1,h2,h3,h4)]:leading-[1.1]! sm:[&_:is(h1,h2,h3,h4)]:text-[clamp(3rem,4.2vw,2.75rem)]!">
           <TextTitle eyebrow="Our World" title="Discover Isola Wine" as="h1" />
         </div>
 
@@ -73,7 +73,7 @@ export default function SectionWorldHome() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.15 }}
-          className="relative mx-auto mt-14 w-full max-w-[1100px] lg:mt-16 lg:py-5"
+          className="relative mx-auto mt-12 w-full max-w-[1100px] sm:mt-14 lg:mt-16 lg:py-5"
         >
           <div
             aria-hidden="true"
@@ -99,7 +99,7 @@ export default function SectionWorldHome() {
                 variants={cardVariants}
                 className="group flex flex-col border-b border-r border-[#1E2A21]/20 lg:border-0"
               >
-                <div className="p-[15px]">
+                <div className="p-3 sm:p-[15px]">
                   <div className="relative aspect-[234/338] w-full overflow-hidden bg-[#E5DBC0]/60">
                     <Image
                       src={item.image}
@@ -111,7 +111,7 @@ export default function SectionWorldHome() {
                   </div>
                 </div>
 
-                <div className="flex flex-1 flex-col items-center border-t border-[#1E2A21]/20 px-3 py-6 text-center">
+                <div className="flex flex-1 flex-col items-center border-t border-[#1E2A21]/20 px-2.5 py-4 text-center sm:px-3 sm:py-6">
                   <span
                     style={SERIF_FONT}
                     className="text-[13px] italic leading-none text-[#6B1E2B]"
@@ -120,11 +120,11 @@ export default function SectionWorldHome() {
                   </span>
                   <h3
                     style={SERIF_FONT}
-                    className="mt-3 pl-[0.22em] text-[clamp(1.15rem,1.9vw,1.6rem)] font-normal uppercase leading-none tracking-[0.22em] text-[#1E2A21]"
+                    className="mt-2.5 pl-[0.18em] text-[clamp(1rem,3.6vw,1.25rem)] font-normal uppercase leading-none tracking-[0.18em] text-[#1E2A21] sm:mt-3 sm:pl-[0.22em] sm:text-[clamp(1.15rem,1.9vw,1.6rem)] sm:tracking-[0.22em]"
                   >
                     {item.title}
                   </h3>
-                  <p className="mt-3 text-[12px] leading-[1.5] text-[#1E2A21]/65">
+                  <p className="mt-2.5 text-[11.5px] leading-[1.5] text-[#1E2A21]/65 sm:mt-3 sm:text-[12px]">
                     {item.text}
                   </p>
                 </div>
