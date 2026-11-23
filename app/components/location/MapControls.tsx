@@ -34,7 +34,7 @@ export default function MapControls({
         type="search"
         value={query}
         onChange={(event) => onQueryChange(event.target.value)}
-        placeholder="Search store or area"
+        placeholder="Search store, address or area"
         className="w-full border border-neutral-300 bg-white px-4 py-3 text-sm text-[#1E2A21] outline-none transition-colors placeholder:text-neutral-400 focus:border-[#1E2A21]"
       />
 
@@ -44,7 +44,7 @@ export default function MapControls({
         disabled={status === "loading"}
         className="w-full border border-[#1E2A21] bg-[#1E2A21] px-4 py-3 text-xs font-medium uppercase tracking-[0.2em] text-white transition-colors hover:bg-white hover:text-[#1E2A21] disabled:cursor-not-allowed disabled:opacity-60"
       >
-        {status === "loading" ? "Getting location..." : "Find nearest Isola"}
+        {status === "loading" ? "Getting location..." : "Find My Location"}
       </button>
 
       <p

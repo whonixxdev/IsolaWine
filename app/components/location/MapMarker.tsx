@@ -9,6 +9,7 @@ interface MapMarkerProps {
   position: LatLngTuple;
   title: string;
   description?: string;
+  directionsHref?: string;
   active?: boolean;
   onSelect?: () => void;
 }
@@ -32,6 +33,7 @@ export default function MapMarker({
   position,
   title,
   description,
+  directionsHref,
   active = false,
   onSelect,
 }: MapMarkerProps) {
@@ -49,13 +51,28 @@ export default function MapMarker({
       ref={markerRef}
       position={position}
       icon={icon}
+      zIndexOffset={active ? 1000 : 0}
       eventHandlers={{ click: () => onSelect?.() }}
     >
-      <Popup>
-        <div className="space-y-1">
-          <strong>{title}</strong>
-          {description && <p>{description}</p>}
-        </div>
+      <Popup autoPan={false}>
+        <span className="block text-[13px] font-medium text-[#1E2A21]">
+          {title}
+        </span>
+        {description && (
+          <span className="mt-1 block text-xs text-neutral-500">
+            {description}
+          </span>
+        )}
+        {directionsHref && (
+          <a
+            href={directionsHref}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="mt-2 inline-block text-[11px] font-medium uppercase tracking-[0.15em] text-[#1E2A21]! underline underline-offset-4"
+          >
+            Get Directions
+          </a>
+        )}
       </Popup>
     </Marker>
   );

@@ -42,6 +42,11 @@ export default function LocationCard({
                 {location.address}
               </span>
             )}
+            {location.regency && (
+              <span className="mt-0.5 block text-xs text-neutral-500">
+                {location.regency}
+              </span>
+            )}
           </span>
           <span className="flex shrink-0 flex-col items-end gap-1">
             {nearest && (
@@ -65,7 +70,7 @@ export default function LocationCard({
           rel="noopener noreferrer"
           className="mb-4 ml-1 inline-block text-xs font-medium uppercase tracking-[0.15em] text-[#1E2A21] underline underline-offset-4"
         >
-          Open directions in Google Maps
+          Get Directions
         </a>
       )}
     </li>

@@ -13,6 +13,7 @@ export interface MapLocation {
   id: string;
   name: string;
   address?: string;
+  regency?: string;
   latitude: number;
   longitude: number;
 }
@@ -28,6 +29,16 @@ export const MAP_CONFIG = {
   placeZoom: 15,
 };
 
+export const BALI_BOUNDS: [LatLngTuple, LatLngTuple] = [
+  [-8.95, 114.4],
+  [-8.0, 115.75],
+];
+
+export const BALI_MAX_BOUNDS: [LatLngTuple, LatLngTuple] = [
+  [-9.3, 113.9],
+  [-7.6, 116.3],
+];
+
 export const LOCATION_MESSAGES: Record<LocationStatus, string> = {
   idle: "Location is off. Showing all Isola Wine locations.",
   loading: "Getting your location...",
@@ -42,6 +53,8 @@ export const MAP_LOCATIONS: MapLocation[] = [
   {
     id: "cantine-balita-winery",
     name: "Cantine Balita Winery",
+    address: "Tajun, Kec. Kubutambahan, Bali 81172",
+    regency: "Buleleng",
     latitude: -8.1368781,
     longitude: 115.2394467,
   },
@@ -86,7 +99,9 @@ export function filterLocations<T extends MapLocation>(
   const keyword = query.trim().toLowerCase();
   if (!keyword) return locations;
   return locations.filter((item) =>
-    `${item.name} ${item.address ?? ""}`.toLowerCase().includes(keyword)
+    `${item.name} ${item.address ?? ""} ${item.regency ?? ""}`
+      .toLowerCase()
+      .includes(keyword)
   );
 }
 

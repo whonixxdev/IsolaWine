@@ -1,22 +1,39 @@
 "use client";
 
+import dynamic from "next/dynamic";
+import type {
+  LatLngTuple,
+  MapLocationWithDistance,
+} from "@/app/lib/maps/map-config";
+
 interface MapContainerProps {
-  src: string;
-  title: string;
+  locations: MapLocationWithDistance[];
+  active: MapLocationWithDistance | null;
+  userPosition: LatLngTuple | null;
+  onSelect: (id: string) => void;
 }
 
-export default function MapContainer({ src, title }: MapContainerProps) {
+const InteractiveMap = dynamic(() => import("./InteractiveMap"), {
+  ssr: false,
+  loading: () => <div className="h-full w-full animate-pulse bg-neutral-100" />,
+});
+
+export default function MapContainer({
+  locations,
+  active,
+  userPosition,
+  onSelect,
+}: MapContainerProps) {
   return (
-    <div className="relative h-full min-h-[450px] w-full overflow-hidden rounded-2xl bg-neutral-100">
-      <iframe
-        key={src}
-        src={src}
-        title={title}
-        loading="lazy"
-        allowFullScreen
-        referrerPolicy="no-referrer-when-downgrade"
-        className="absolute inset-0 h-full w-full border-0"
-      />
+    <div className="relative isolate h-full min-h-[450px] w-full overflow-hidden rounded-2xl bg-neutral-100">
+      <div className="absolute inset-0">
+        <InteractiveMap
+          locations={locations}
+          active={active}
+          userPosition={userPosition}
+          onSelect={onSelect}
+        />
+      </div>
     </div>
   );
 }
