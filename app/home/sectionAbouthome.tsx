@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { motion, type Variants } from "motion/react";
 import { SERIF_FONT } from "./home-hero.data";
+import MagneticWrapper from "../components/animations/Magnetic/MagneticWrapper";
 
 interface StoryPoint {
   number: string;
@@ -86,13 +87,15 @@ export default function SectionAboutHome() {
           </motion.p>
 
           <motion.div variants={itemVariants} className="mt-8 sm:mt-9">
-            <Link
-              href={STORY_LINK}
-              className="inline-flex items-center gap-3 rounded-full border border-[#1E2A21]/60 px-7 py-3.5 text-[11px] uppercase tracking-[0.28em] text-[#1E2A21] transition-colors duration-300 hover:bg-[#1E2A21] hover:text-[#F8F6EF]"
-            >
-              Read our story
-              <span aria-hidden="true">→</span>
-            </Link>
+            <MagneticWrapper range={0.1}>
+              <Link
+                href={STORY_LINK}
+                className="inline-flex items-center gap-3 rounded-full border border-[#1E2A21]/60 px-7 py-3.5 text-[11px] uppercase tracking-[0.28em] text-[#1E2A21] transition-colors duration-300 hover:bg-[#1E2A21] hover:text-[#F8F6EF]"
+              >
+                Read our story
+                <span aria-hidden="true">→</span>
+              </Link>
+            </MagneticWrapper>
           </motion.div>
 
           <div className="mt-11 grid grid-cols-1 gap-6 sm:mt-14 sm:grid-cols-3 sm:gap-6">
