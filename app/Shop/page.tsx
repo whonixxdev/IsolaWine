@@ -3,6 +3,7 @@ import { Jost } from "next/font/google";
 import TextTitle from "../components/ui/title/Texttitle";
 import { WINE_SHOP_ITEMS } from "./shopData";
 import WineProductCard from "./WineProductCard";
+import WineryContactCta from "./WineryContactCta";
 
 const bodyFont = Jost({
   subsets: ["latin"],
@@ -46,6 +47,7 @@ export default function ShopPage() {
           </div>
         </section>
       </div>
+      <WineryContactCta/>
     </main>
   );
 }

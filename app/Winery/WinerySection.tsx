@@ -163,9 +163,9 @@ export default function WinerySection({
           transition={{ duration: 0.9, ease: EASE }}
           className="pointer-events-none absolute bottom-0 right-0 hidden h-auto w-[16vw] max-w-[300px] lg:block"
         >
-          <circle cx="360" cy="340" r="280" stroke="#5A1C26" strokeWidth="1" />
+          {/* <circle cx="360" cy="340" r="280" stroke="#5A1C26" strokeWidth="1" />
           <circle cx="365" cy="345" r="255" stroke="#5A1C26" strokeWidth="1" />
-          <circle cx="372" cy="352" r="225" stroke="#5A1C26" strokeWidth="1" />
+          <circle cx="372" cy="352" r="225" stroke="#5A1C26" strokeWidth="1" /> */}
         </motion.svg>
       ) : null}
     </section>

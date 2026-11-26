@@ -88,7 +88,7 @@ export default function WineryHero() {
     <MotionConfig reducedMotion="user">
       <section
         ref={sectionRef}
-        className="relative h-svh min-h-[34rem] w-full overflow-hidden bg-[#1E2A21]"
+        className="relative h-svh min-h-[34rem] w-full overflow-hidden rounded-b-[15px] bg-[#1E2A21]"
       >
         <motion.div
           initial={{ scale: 1.1 }}
@@ -97,7 +97,7 @@ export default function WineryHero() {
           className="absolute inset-0 will-change-transform"
         >
           <Image
-            src="/assets/imgs/Background/backgroundWinery.webp"
+            src="/assets/imgs/Background/backgroundWinery4.jpg"
             alt="Winemakers checking a stainless steel tank at Isola Winery"
             fill
             priority
