@@ -17,7 +17,7 @@ const MILESTONES: Milestone[] = [
     side: "right",
     description:
       "we embarked on our mission to produce authentic, high-quality organic wine variations in Bali. This period marked the beginning of the long road cultivating our vineyards and developing a unique agronomy program in the tropics.",
-    logo: "/assets/logo/LogoAbout.png",
+    logo: "/assets/logo/LogoAboutDark.png",
     logoAlt: "Isola Wine crest",
   },
   {
