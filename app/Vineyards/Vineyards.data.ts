@@ -18,7 +18,7 @@ export interface VineyardsFeatureContent extends ImageSource {
 }
 
 export const VINEYARDS_HERO: ImageSource = {
-  image: "/assets/imgs/Background/BackgroundVineyards.png",
+  image: "/assets/imgs/Background/vineyards/BackgroundVineyards.png",
   imageAlt: "Ripe dark grapes on the vine at the Isola vineyards in Bali",
 };
 

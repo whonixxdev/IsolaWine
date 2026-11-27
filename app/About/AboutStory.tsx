@@ -13,7 +13,7 @@ export default function AboutStory({ children }: AboutStoryProps) {
       <div className="grid items-center gap-12 md:grid-cols-2 md:gap-16">
         <div className="relative mx-auto aspect-[3/4] w-full max-w-md overflow-hidden rounded-3xl">
           <Image
-            src="/assets/imgs/Background/BackgroundStoryAbout.png"
+            src="/assets/imgs/Background/about/BackgroundStoryAbout.png"
             alt="Isola Wine team with harvested grape crates"
             fill
             sizes="(min-width: 768px) 448px, 100vw"
@@ -35,21 +35,18 @@ export default function AboutStory({ children }: AboutStoryProps) {
             </p>
 
             <p className="border-t border-[#1E2A21]/40 py-5">
-              <span className="font-semibold">Cantine</span> in Italian means
-              wine cellars, where wine is stored and aged.{" "}
-              <span className="font-semibold"> <br />Balita</span> stands for Bali and
-              Italy, and the close partnership we have formed with this
-              project.
+              <span className="font-semibold">Cantine</span> means wineries in Italian which are the places 
+              where the wine is produced, stored, and aged.{" "}
+              <span className="font-semibold"> <br />Balita</span> the idea of Balita represent the 
+              partnership between bali and italy.
             </p>
 
             <p className="border-t border-[#1E2A21]/40 pt-5">
-              <span className="font-semibold">Isola</span> means island in
-              Italian. Our winemaking heritage stems from the Italian island of
-              Sicily. Bali and Sicily share fundamental similarities for
-              winemaking, such as the volcanic soil and hot climates. Both are
-              exceptional islands with great history and tradition; therefore,
-              we decided to name our wine{" "}
-              <span className="font-semibold">Isola</span>.
+              <span className="font-semibold">Isola Wine</span> is a Balinese boutieque winery that specialises in growing high quality grapes by combining italian viticulture knowlegde with Balinese agriculture traditions.{" "} <br/>
+              <span className="font-semibold">Isola Wine</span> project started in 2012 with a simpel goal - 
+              to produce international quality wine in tropical climate the journey, however, was challenging - 
+              it took 2 Years of agrucultural development and experimentation for the team to create a brand new agronomy program that could match the standar 
+              needed to produce first experimental batches of isola wine in 2014.
             </p>
           </div>
         </div>

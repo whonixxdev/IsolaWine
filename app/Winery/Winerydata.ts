@@ -18,7 +18,7 @@ export const WINERY_SECTIONS: WinerySectionContent[] = [
       "In organic winemaking, the use of herbicides, fertilizers, and sulfites are limited. We respect and adhere to the Italian and European standards and the fundamental oenological practices to guarantee an authentic “organic wine.”",
       "We are proud that we built our winery in one of the most stunning places in Bali, and according to the highest European standards. Sicilian Winemaker, Giacomo Anselmi, personally trains our staff to guarantee our high standards are upheld during every stage of the production process.",
     ],
-    image: "/assets/imgs/Background/BackgroundAboutHome.png",
+    image: "/assets/imgs/Background/about/BackgroundAboutHome.png",
     imageAlt: "Two winemakers picking ripe grapes from the vine",
   },
   {
@@ -30,7 +30,7 @@ export const WINERY_SECTIONS: WinerySectionContent[] = [
       "By using only the best and most reliable equipment available, we can guarantee quality wines made in the tropical jungle of Bali.",
       "Our local team and Chief Winemaker, together installed the machinery, setting up the ideal production process, to ensure only the purest high-quality wines.",
     ],
-    image: "/assets/imgs/Background/backgroundWinery2.png",
+    image: "/assets/imgs/Background/winery/backgroundWinery2.png",
     imageAlt: "Row of stainless steel winemaking tanks inside the winery",
   },
   {
@@ -42,7 +42,7 @@ export const WINERY_SECTIONS: WinerySectionContent[] = [
       "Traditionally, wine samples are sent to external laboratories, requiring time and causing delays. We optimize this process by having the test results available to us in real-time. In turn, this allows us to respond proactively and immediately to the results.",
       "Our winery is located in the middle of the Balinese jungle, which can be a logistical challenge. To be able to guarantee our non-negotiable high standard, we made sure we were operating 100% independently, even with the lab tests.",
     ],
-    image: "/assets/imgs/Background/backgroundWinery3.png",
+    image: "/assets/imgs/Background/winery/backgroundWinery3.png",
     imageAlt: "A hand holding a laboratory flask with a wine sample",
   },
 ];

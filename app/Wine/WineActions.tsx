@@ -14,8 +14,7 @@ interface WineActionsProps {
 }
 
 export default function WineActions({ name, type }: WineActionsProps) {
-  const orderMessage = `Hello Cantine Balita / Isola Wine, I would like to order ${name} (${type}). Please confirm availability, price, and delivery.`;
-  const orderHref = `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(orderMessage)}`;
+  const orderHref = "/Shop"
 
   const mailSubject = `Inquiry: ${name}`;
   const mailBody = `Hello Cantine Balita / Isola Wine,\n\nI would like to know more about:\n- Wine: ${name}\n- Type: ${type}\n\nPlease share availability, pricing, and delivery details.\n\nThank you.`;

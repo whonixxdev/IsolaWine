@@ -8,7 +8,7 @@ type OurStoryButtonProps = {
 const serif = { fontFamily: '"Cormorant Garamond", Georgia, serif' };
 
 export default function OurStoryButton({
-  href = "/about",
+  href = "/About",
 }: OurStoryButtonProps) {
   return (
     <Link

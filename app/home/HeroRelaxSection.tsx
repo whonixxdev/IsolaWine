@@ -166,7 +166,7 @@ export default function HeroRelaxSection({
             </p>
 
             <div data-relax className="mt-3 sm:mt-8 lg:mt-12">
-              <DiscoverOurWinesButton href="/Gallery/wine" />
+              <DiscoverOurWinesButton href="/Wine" />
             </div>
           </div>
 

@@ -106,7 +106,7 @@ export default function WineryHero() {
           className="absolute inset-0 will-change-transform"
         >
           <Image
-            src="/assets/imgs/Background/backgroundWinery4.jpg"
+            src="/assets/imgs/Background/winery/backgroundWinery4.jpg"
             alt="Winemakers checking a stainless steel tank at Isola Winery"
             fill
             priority
@@ -116,7 +116,7 @@ export default function WineryHero() {
         </motion.div>
 
         <div aria-hidden="true" className="absolute inset-0 bg-[#1E2A21]/30" />
-
+{/* 
         <motion.div
           key={`frame-${pathname}`}
           aria-hidden="true"
@@ -138,7 +138,7 @@ export default function WineryHero() {
           <span
             className={`${cornerClass} -bottom-px -right-px border-b border-r`}
           />
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
           key={`side-left-${pathname}`}

@@ -4,6 +4,7 @@ import "./globals.css";
 import Navbars from "./components/ui/navbars/Navbars";
 import SmoothScroll from "./components/animations/Scroll/ScrollSmooth";
 import Footer from "./components/layouts/Footer";
+import LocationsPage from "./components/location/page";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://isola-wine.vercel.app"),
@@ -59,6 +60,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <SmoothScroll>
           <Navbars />
           {children}
+          <LocationsPage/>
           <Footer />
         </SmoothScroll>
       </body>

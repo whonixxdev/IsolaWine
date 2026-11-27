@@ -34,13 +34,13 @@ export default function WineItem({ wine, index }: WineItemProps) {
             reversed ? "lg:col-start-8" : "lg:col-start-1"
           }`}
         >
-          <div className="group relative aspect-[4/5] w-full overflow-hidden rounded-[1.5rem] bg-[#1E2A21] shadow-[0_18px_40px_-24px_rgba(30,42,33,0.45)] lg:rounded-[2rem]">
+          <div className="group relative aspect-[4/5] w-full overflow-hidden">
             <Image
               src={wine.image}
               alt={wine.imageAlt}
               fill
               sizes="(min-width: 1024px) 40vw, 90vw"
-              className="object-contain px-[14%] py-[10%] transition-transform duration-700 ease-out group-hover:scale-[1.03]"
+              className="object-contain p-4 transition-transform duration-700 ease-out group-hover:scale-[1.03] sm:p-6"
             />
           </div>
         </motion.div>

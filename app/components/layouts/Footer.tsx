@@ -35,17 +35,16 @@ const exploreLinks: FooterLink[] = [
   { label: "Winery", href: "/Winery" },
   { label: "Wines", href: "/Wine" },
   { label: "Gallery", href: "/Gallery" },
-  { label: "Explore", href: "/Explore" },
-  { label: "Media", href: "/Media" },
-  { label: "Contact Us", href: "/Contact" },
   { label: "Shop", href: "/Shop" },
+  { label: "Contact Us", href: "/Contact" },
 ];
 
 const wineLinks: FooterLink[] = [
-  { label: "Isola Bianco", href: "/Wine/Bianco" },
-  { label: "Isola Rosso", href: "/Wine/Rosso" },
-  { label: "Isola Rosato", href: "/Wine/Rosato" },
-  { label: "Isola Moscato", href: "/Wine/Moscato" },
+  { label: "Isola Bianco", href: "/Wine" },
+  { label: "Isola Rosso", href: "/Wine" },
+  { label: "Isola Rosato", href: "/Wine" },
+  { label: "Isola Moscato", href: "/Wine" },
+  { label: "See All", href: "/Wine"}
 ];
 
 const contactItems: ContactItem[] = [
@@ -221,17 +220,6 @@ export default function Footer() {
 
   return (
     <footer className={`${jost.className} bg-[#1E2A21] text-[#F8F6EF]`}>
-      <div className="px-6 py-12 md:px-10 lg:px-16 lg:py-14">
-        <p className="text-[12px] font-medium tracking-[0.3em] text-[#C49A3C]">
-          NEWSLETTER
-        </p>
-
-        <h2
-          className={`${cormorant.className} mt-3 text-4xl font-light leading-tight text-[#F8F6EF] md:text-[46px]`}
-        >
-          Notes from the vineyard
-        </h2>
-      </div>
 
       <div className="border-t border-[#F8F6EF]/15" />
 
@@ -334,7 +322,7 @@ export default function Footer() {
         <p className="text-[13px] font-light uppercase tracking-[0.1em] text-[#F8F6EF]/55 md:text-right">
           Isola Wine
           <span className="mx-2">·</span>
-          Italian Wine Made in Bali
+          Made by Isola IT
         </p>
       </div>
     </footer>

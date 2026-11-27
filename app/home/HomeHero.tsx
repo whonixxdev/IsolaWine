@@ -62,39 +62,28 @@ export default function HomeHero() {
 
     mm.add("(prefers-reduced-motion: no-preference)", () => {
       gsap
-        .timeline({ delay: 0.3 })
+        .timeline({ delay: 0.25 })
         .fromTo(
           letters,
           { yPercent: 115, autoAlpha: 1 },
-          { yPercent: 0, duration: 1.3, ease: "power4.out", stagger: 0.14 },
+          { yPercent: 0, duration: 1.25, ease: "power4.out", stagger: 0.12 },
         )
         .fromTo(
           introItems,
-          { y: 28, autoAlpha: 0 },
+          { y: 22, autoAlpha: 0 },
           {
             y: 0,
             autoAlpha: 1,
-            duration: 0.9,
+            duration: 0.85,
             ease: "power3.out",
-            stagger: 0.1,
+            stagger: 0.08,
           },
-          0.9,
+          0.75,
         );
     });
 
     mm.add("(prefers-reduced-motion: reduce)", () => {
       gsap.set([...letters, ...introItems], { autoAlpha: 1 });
-    });
-
-    mm.add("(hover: none) and (pointer: coarse)", () => {
-      ScrollTrigger.normalizeScroll({
-        allowNestedScroll: true,
-        type: "touch",
-      });
-
-      return () => {
-        ScrollTrigger.normalizeScroll(false);
-      };
     });
 
     mm.add(
@@ -107,7 +96,8 @@ export default function HomeHero() {
         const isDesktop = Boolean(context.conditions?.isDesktop);
         const isTablet = Boolean(context.conditions?.isTablet);
         const isMobile = Boolean(context.conditions?.isMobile);
-        const phaseScale = isDesktop ? 1 : isTablet ? 0.8 : 0.56;
+        const phaseScale = isDesktop ? 0.94 : isTablet ? 0.76 : 0.54;
+        const scrollMultiplier = isDesktop ? 5 : isTablet ? 4 : 3.2;
         const handoff = 7.6;
 
         const labels = Array.from(labelsWrap.children);
@@ -136,7 +126,8 @@ export default function HomeHero() {
           const targetCenterY = landingRect.top + landingRect.height / 2;
 
           return {
-            centerY: rootRect.top + root.offsetHeight / 2 - bottleCenterY + currentY,
+            centerY:
+              rootRect.top + root.offsetHeight / 2 - bottleCenterY + currentY,
             x: currentX + (targetCenterX - bottleCenterX),
             y: currentY + (targetCenterY - bottleCenterY),
             scale:
@@ -147,16 +138,16 @@ export default function HomeHero() {
         };
 
         gsap.set(bottle, { transformPerspective: 1400, autoAlpha: 1 });
-        gsap.set(photo, { scale: 1.18 });
+        gsap.set(photo, { scale: 1.14 });
 
         const tl = gsap.timeline({
           defaults: { ease: "none" },
           scrollTrigger: {
             trigger: root,
             start: "top top",
-            end: () => `+=${window.innerHeight * 5}`,
+            end: () => `+=${window.innerHeight * scrollMultiplier}`,
             pin: true,
-            scrub: isDesktop ? 0.8 : 0.4,
+            scrub: isDesktop ? 0.8 : 0.25,
             anticipatePin: 1,
             invalidateOnRefresh: true,
           },
@@ -169,8 +160,13 @@ export default function HomeHero() {
           .to(
             title,
             {
-              scale: isMobile ? 0.82 : 1.06,
-              y: () => (isMobile ? -root.offsetHeight * 0.13 : 0),
+              scale: isMobile ? 0.78 : isTablet ? 0.9 : 0.96,
+              y: () =>
+                isMobile
+                  ? -root.offsetHeight * 0.12
+                  : isDesktop
+                    ? root.offsetHeight * 0.04
+                    : 0,
               duration: 4,
               ease: "power1.inOut",
             },
@@ -188,18 +184,18 @@ export default function HomeHero() {
           )
           .to(
             labels,
-            { autoAlpha: 0, y: -24, duration: 1.2, stagger: 0.12 },
+            { autoAlpha: 0, y: -20, duration: 1.2, stagger: 0.1 },
             0.3,
           )
           .to(overlay, { opacity: 0.38, duration: 2.5 }, 1.5)
           .fromTo(
             phaseItems,
-            { autoAlpha: 0, y: 36 },
+            { autoAlpha: 0, y: 28 },
             {
               autoAlpha: 1,
               y: 0,
               duration: 1,
-              stagger: 0.18,
+              stagger: 0.16,
               ease: "power2.out",
             },
             3.2,
@@ -210,7 +206,7 @@ export default function HomeHero() {
             {
               yPercent: 115,
               duration: 1.1,
-              stagger: { each: 0.1, from: "end" },
+              stagger: { each: 0.09, from: "end" },
               ease: "power2.in",
               immediateRender: false,
             },
@@ -220,7 +216,7 @@ export default function HomeHero() {
             phaseItems,
             {
               autoAlpha: 0,
-              y: -24,
+              y: -20,
               duration: 0.9,
               stagger: 0.06,
               ease: "power1.in",
@@ -269,7 +265,7 @@ export default function HomeHero() {
             relaxItems,
             {
               autoAlpha: 0,
-              y: 40,
+              y: 32,
               duration: 1.2,
               stagger: 0.1,
               ease: "power2.out",
