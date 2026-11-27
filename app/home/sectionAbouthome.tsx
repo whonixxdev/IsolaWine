@@ -12,7 +12,7 @@ interface StoryPoint {
   text: string;
 }
 
-const STORY_IMAGE = "/assets/imgs/Background/BackgroundAboutHome.png";
+const STORY_IMAGE = "/assets/imgs/Background/about/BackgroundAboutHome.png";
 const STORY_LINK = "/About";
 const EASE: [number, number, number, number] = [0.22, 1, 0.36, 1];
 

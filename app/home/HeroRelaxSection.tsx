@@ -177,7 +177,7 @@ export default function HeroRelaxSection({
             <div className="flex items-center gap-3.5 sm:gap-4">
               <div className="relative hidden h-14 w-24 shrink-0 overflow-hidden bg-[#E5DBC0]/60 sm:block">
                 <Image
-                  src="/assets/imgs/Background/BackgroundHome.png"
+                  src="/assets/imgs/Background/home/BackgroundHome.png"
                   alt="Wine tasting"
                   fill
                   sizes="96px"

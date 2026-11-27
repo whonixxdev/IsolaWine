@@ -25,7 +25,7 @@ export default function HeroIntroLayer({
     <>
       <div ref={photoRef} className="absolute inset-0 z-0">
         <Image
-          src="/assets/imgs/Background/BackgroundHome.png"
+          src="/assets/imgs/Background/home/BackgroundHome.png"
           alt=""
           fill
           priority
