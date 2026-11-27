@@ -32,7 +32,6 @@ export default function VineyardsPage() {
           </Fragment>
         );
       })}
-      <SectionProgressDivider />
       <VineyardsClosing />
     </main>
   );

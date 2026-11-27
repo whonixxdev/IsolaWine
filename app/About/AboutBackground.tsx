@@ -13,10 +13,12 @@ export default function AboutBackground({
     <div
       className={`relative w-full overflow-x-clip text-[#1E2A21] ${className}`}
       style={{
-        backgroundImage: "linear-gradient(to bottom, #FFF2C3, #F8F6EF)",
+        backgroundImage: "linear-gradient(to bottom, #F8F6EF)"
       }}
-    >
+      >
       {children}
     </div>
   );
 }
+
+  // backgroundImage: "linear-gradient(to bottom, #FFF2C3, #F8F6EF)",

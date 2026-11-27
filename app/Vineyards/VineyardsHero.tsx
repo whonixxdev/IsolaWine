@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useSyncExternalStore } from "react";
+import { usePathname } from "next/navigation";
 import Image from "next/image";
 import { Cormorant_Garamond, Jost } from "next/font/google";
 import {
@@ -26,6 +27,7 @@ const labelFont = Jost({
 const EASE = [0.22, 1, 0.36, 1] as const;
 const TITLE_LETTERS = "ISOLA".split("");
 const DESKTOP_QUERY = "(min-width: 1024px)";
+const REPLAY_VIEWPORT = { once: false, amount: "some" as const };
 
 const eyebrowClass =
   "flex items-center gap-4 text-[10px] font-medium uppercase tracking-[0.34em] sm:text-[11px] lg:text-[12px]";
@@ -40,22 +42,26 @@ const cornerClass = "absolute h-4 w-4 border-[#C49A3C] lg:h-6 lg:w-6";
 
 const titleGroup: Variants = {
   hidden: {},
-  visible: { transition: { delayChildren: 0.35, staggerChildren: 0.11 } },
+  visible: { transition: { delayChildren: 0.2, staggerChildren: 0.09 } },
 };
 
 const letterRise: Variants = {
-  hidden: { y: "110%" },
-  visible: { y: "0%", transition: { duration: 1.1, ease: EASE } },
+  hidden: { y: "110%", opacity: 0 },
+  visible: {
+    y: "0%",
+    opacity: 1,
+    transition: { duration: 0.95, ease: EASE },
+  },
 };
 
 const fadeUp: Variants = {
   hidden: { opacity: 0, y: 18 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.9, ease: EASE } },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.85, ease: EASE } },
 };
 
 const footerGroup: Variants = {
   hidden: {},
-  visible: { transition: { delayChildren: 1.5, staggerChildren: 0.14 } },
+  visible: { transition: { delayChildren: 0.65, staggerChildren: 0.12 } },
 };
 
 const subscribeDesktop = (callback: () => void) => {
@@ -69,6 +75,7 @@ const getDesktopSnapshot = () => window.matchMedia(DESKTOP_QUERY).matches;
 const getDesktopServerSnapshot = () => false;
 
 export default function VineyardsHero() {
+  const pathname = usePathname();
   const sectionRef = useRef<HTMLElement>(null);
 
   const isDesktop = useSyncExternalStore(
@@ -92,9 +99,11 @@ export default function VineyardsHero() {
         className="relative isolate h-svh min-h-[34rem] w-full overflow-hidden rounded-b-[1.5rem] bg-[#1E2A21] sm:rounded-b-[2rem] lg:rounded-b-[2.25rem]"
       >
         <motion.div
-          initial={{ scale: 1.1 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.8, ease: EASE }}
+          key={`bg-${pathname}`}
+          initial={{ scale: 1.08 }}
+          whileInView={{ scale: 1 }}
+          viewport={REPLAY_VIEWPORT}
+          transition={{ duration: 1.5, ease: EASE }}
           className="absolute inset-0 will-change-transform"
         >
           {VINEYARDS_HERO.image ? (
@@ -109,16 +118,15 @@ export default function VineyardsHero() {
           ) : null}
         </motion.div>
 
-        <div
-          aria-hidden="true"
-          className="absolute inset-0 bg-[#1E2A21]/30"
-        />
+        <div aria-hidden="true" className="absolute inset-0 bg-[#1E2A21]/30" />
 
-        <motion.div
+        {/* <motion.div
+          key={`frame-${pathname}`}
           aria-hidden="true"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1.4, delay: 0.6, ease: EASE }}
+          whileInView={{ opacity: 1 }}
+          viewport={REPLAY_VIEWPORT}
+          transition={{ duration: 1.1, delay: 0.3, ease: EASE }}
           className="pointer-events-none absolute inset-3 z-10 border border-[#F8F6EF]/25 sm:inset-5 lg:inset-8"
         >
           <span
@@ -133,13 +141,15 @@ export default function VineyardsHero() {
           <span
             className={`${cornerClass} -bottom-px -right-px border-b border-r`}
           />
-        </motion.div>
+        </motion.div> */}
 
         <motion.div
+          key={`side-left-${pathname}`}
           aria-hidden="true"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.7, ease: EASE }}
+          whileInView={{ opacity: 1 }}
+          viewport={REPLAY_VIEWPORT}
+          transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
           className={`${labelFont.className} absolute left-11 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-5 text-[#F8F6EF] lg:flex`}
         >
           <span className="h-12 w-px bg-[#C49A3C]" />
@@ -147,10 +157,12 @@ export default function VineyardsHero() {
         </motion.div>
 
         <motion.div
+          key={`side-right-${pathname}`}
           aria-hidden="true"
           initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 1, delay: 1.7, ease: EASE }}
+          whileInView={{ opacity: 1 }}
+          viewport={REPLAY_VIEWPORT}
+          transition={{ duration: 0.9, delay: 0.6, ease: EASE }}
           className={`${labelFont.className} absolute right-11 top-1/2 z-10 hidden -translate-y-1/2 flex-col items-center gap-5 text-[#F8F6EF] lg:flex`}
         >
           <span className={sideTextClass}>Produced in Bali</span>
@@ -165,9 +177,11 @@ export default function VineyardsHero() {
         >
           <div className="flex h-full items-center justify-center px-[6vw] pb-[3svh]">
             <motion.div
+              key={`title-${pathname}`}
               variants={titleGroup}
               initial="hidden"
-              animate="visible"
+              whileInView="visible"
+              viewport={REPLAY_VIEWPORT}
               className="flex flex-col items-center"
             >
               <motion.p
@@ -220,9 +234,11 @@ export default function VineyardsHero() {
           </div>
 
           <motion.div
+            key={`footer-${pathname}`}
             variants={footerGroup}
             initial="hidden"
-            animate="visible"
+            whileInView="visible"
+            viewport={REPLAY_VIEWPORT}
             className={`${labelFont.className} absolute inset-x-0 bottom-0 px-[6vw] pb-10 lg:px-[4vw] lg:pb-[7svh]`}
           >
             <div className="grid grid-cols-2 items-start gap-y-7 lg:grid-cols-3">
