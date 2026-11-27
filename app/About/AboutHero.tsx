@@ -104,7 +104,7 @@ export default function AboutHero() {
           className="absolute inset-0 will-change-transform"
         >
           <Image
-            src="/assets/imgs/Background/BackgroundAbout.png"
+            src="/assets/imgs/Background/about/BackgroundAbout.png"
             alt="Isola Wine Team Harvest in Bali"
             fill
             priority

@@ -65,44 +65,28 @@ export default function WineItem({ wine, index }: WineItemProps) {
             {wine.name}
           </h2>
 
-          <p className={`${bodyClass} mt-5 max-w-[34rem]`}>
-            {wine.description}
-          </p>
-
-          <div className="mt-9 lg:mt-10">
-            <h3 className={sectionLabelClass}>Composition</h3>
-            <ul className="mt-4 flex max-w-[34rem] flex-col gap-4">
-              {wine.composition.map((item) => (
-                <li key={item.grape}>
-                  <div className="flex items-baseline justify-between text-[14px] tracking-[0.03em]">
-                    <span>{item.grape}</span>
-                    <span
-                      className={`${titleFont.className} text-[22px] leading-none text-[#5A1C26]`}
-                    >
-                      {item.percentage}%
-                    </span>
-                  </div>
-                  <div className="relative mt-2.5 h-[2px] w-full bg-[#D8D0C2]">
-                    <motion.span
-                      initial={{ scaleX: 0 }}
-                      whileInView={{ scaleX: item.percentage / 100 }}
-                      viewport={VIEWPORT}
-                      transition={{ duration: 1.2, delay: 0.35, ease: EASE }}
-                      className="absolute inset-y-0 left-0 block w-full origin-left bg-[#5A1C26]"
-                    />
-                  </div>
-                </li>
-              ))}
-            </ul>
+          <div className="mt-6 max-w-[34rem] border-y border-[#D8D0C2] py-4">
+            <p className={sectionLabelClass}>Grape Variety</p>
+            <p className="mt-1.5 text-[15px] font-medium text-[#1E2A21]">
+              {wine.grape}
+            </p>
+            {wine.notes ? (
+              <p className="mt-1 text-[13px] italic text-[#1E2A21]/70">
+                {wine.notes}
+              </p>
+            ) : null}
           </div>
 
-          <dl className="mt-9 grid max-w-[34rem] grid-cols-2 gap-x-6 border-t border-[#D8D0C2] sm:grid-cols-4 lg:mt-10">
+          <dl className="mt-7 grid max-w-[34rem] grid-cols-1 gap-x-6 border-b border-[#D8D0C2] sm:grid-cols-3">
             {wine.specs.map((spec) => (
-              <div key={spec.label} className="border-b border-[#D8D0C2] py-4">
+              <div
+                key={spec.label}
+                className="border-t border-[#D8D0C2] py-3.5 sm:border-t-0"
+              >
                 <dt className="text-[11px] uppercase tracking-[0.08em] text-[#1E2A21]/60">
                   {spec.label}
                 </dt>
-                <dd className="mt-1.5 text-[14px] font-medium text-[#1E2A21]">
+                <dd className="mt-1 text-[13px] font-medium text-[#1E2A21]">
                   {spec.value}
                 </dd>
               </div>
